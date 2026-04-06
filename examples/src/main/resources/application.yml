@@ -1,0 +1,20 @@
+max:
+  bot:
+    access-token: ${MAX_BOT_TOKEN}
+    # По умолчанию используется long polling.
+    # Для webhook-режима раскомментируйте:
+    # webhook:
+    #   enabled: true
+    #   path: /webhook
+    #   secret: your-secret-here
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+

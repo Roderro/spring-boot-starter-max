@@ -1,0 +1,18 @@
+package ru.maxbot.core.model;
+
+public enum UpdateType {
+    MESSAGE_CREATED,
+    MESSAGE_CALLBACK,
+    MESSAGE_EDITED,
+    MESSAGE_REMOVED,
+    BOT_STARTED,
+    BOT_ADDED,
+    BOT_REMOVED,
+    USER_ADDED,
+    USER_REMOVED,
+    CHAT_TITLE_CHANGED,
+    MESSAGE_CHAT_CREATED,
+    UNKNOWN
+}
+
+

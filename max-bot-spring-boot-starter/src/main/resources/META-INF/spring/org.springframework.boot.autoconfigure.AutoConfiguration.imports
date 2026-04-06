@@ -1,0 +1,7 @@
+ru.maxbot.starter.MaxBotAutoConfiguration
+ru.maxbot.starter.MaxBotDispatchAutoConfiguration
+ru.maxbot.starter.MaxBotAnnotationAutoConfiguration
+ru.maxbot.starter.MaxBotSecurityAutoConfiguration
+ru.maxbot.starter.inbound.MaxBotInboundAutoConfiguration
+ru.maxbot.starter.actuator.MaxBotActuatorAutoConfiguration
+
