@@ -11,6 +11,8 @@ public class MaxBotProperties {
 
     private Polling polling = new Polling();
 
+    private RateLimit rateLimit = new RateLimit();
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -33,6 +35,14 @@ public class MaxBotProperties {
 
     public void setPolling(Polling polling) {
         this.polling = polling;
+    }
+
+    public RateLimit getRateLimit() {
+        return rateLimit;
+    }
+
+    public void setRateLimit(RateLimit rateLimit) {
+        this.rateLimit = rateLimit != null ? rateLimit : new RateLimit();
     }
 
     public static class Webhook {
@@ -83,6 +93,18 @@ public class MaxBotProperties {
 
         public void setLimit(int limit) {
             this.limit = limit;
+        }
+    }
+
+    public static class RateLimit {
+        private int requestsPerSecond = 30;
+
+        public int getRequestsPerSecond() {
+            return requestsPerSecond;
+        }
+
+        public void setRequestsPerSecond(int requestsPerSecond) {
+            this.requestsPerSecond = requestsPerSecond;
         }
     }
 }

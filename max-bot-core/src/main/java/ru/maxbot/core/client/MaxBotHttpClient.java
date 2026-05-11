@@ -32,13 +32,20 @@ public final class MaxBotHttpClient {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final String endpoint;
+    private final RequestRateLimiter rateLimiter;
 
     public MaxBotHttpClient(String accessToken, HttpClient httpClient, ObjectMapper objectMapper) {
+        this(accessToken, httpClient, objectMapper, 30);
+    }
+
+    public MaxBotHttpClient(String accessToken, HttpClient httpClient, ObjectMapper objectMapper,
+                            int maxRequestsPerSecond) {
         this.accessToken = accessToken;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper.copy()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.endpoint = resolveEndpoint();
+        this.rateLimiter = new RequestRateLimiter(maxRequestsPerSecond);
     }
 
     public IncomingUpdateList getUpdates(Long marker, Integer timeout, Integer limit) {
@@ -102,6 +109,7 @@ public final class MaxBotHttpClient {
         }
 
         try {
+            rateLimiter.acquire();
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             return handleResponse(response, UploadedInfo.class, url);
         } catch (IOException e) {
@@ -136,6 +144,7 @@ public final class MaxBotHttpClient {
         }
 
         try {
+            rateLimiter.acquire();
             HttpResponse<String> response = httpClient.send(builder.build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             return handleResponse(response, responseType, url);
         } catch (IOException e) {

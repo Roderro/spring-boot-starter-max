@@ -49,7 +49,8 @@ public class MaxBotAutoConfiguration {
     public MaxBotHttpClient maxBotHttpClient(MaxBotProperties props,
                                              HttpClient httpClient,
                                              ObjectMapper maxBotObjectMapper) {
-        return new MaxBotHttpClient(props.getAccessToken(), httpClient, maxBotObjectMapper);
+        return new MaxBotHttpClient(props.getAccessToken(), httpClient, maxBotObjectMapper,
+                props.getRateLimit().getRequestsPerSecond());
     }
 
     @Bean
